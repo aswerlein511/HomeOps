@@ -1,14 +1,17 @@
-/// <reference types="vitest/config" />
+/// <reference types="vitest" />
 
 import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
-import tsconfigPaths from "vite-tsconfig-paths";
+import path from "node:path";
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
-  plugins: [
-    react(),
-    tsconfigPaths(),
-  ],
+  plugins: [react()],
+
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
 
   test: {
     globals: true,
@@ -25,13 +28,13 @@ export default defineConfig({
       reporter: [
         "text",
         "html",
-        "lcov",
+        "lcov"
       ],
 
       reportsDirectory: "./coverage",
 
       include: [
-        "src/**/*.{ts,tsx}",
+        "src/**/*.{ts,tsx}"
       ],
 
       exclude: [
@@ -39,17 +42,21 @@ export default defineConfig({
         "src/vite-env.d.ts",
         "src/**/*.d.ts",
         "src/**/index.ts",
-        "coverage/**",
-        "dist/**",
-        "node_modules/**",
+        "node_modules",
+        "coverage",
+        "dist",
+        "**/*.d.ts",
+        "**/types.ts",
+        "**/variants.ts",
+        "**/sizes.ts",
       ],
 
       thresholds: {
         statements: 80,
         branches: 75,
         functions: 80,
-        lines: 80,
-      },
-    },
-  },
+        lines: 80
+      }
+    }
+  }
 });

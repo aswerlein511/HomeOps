@@ -1,0 +1,84 @@
+/* ==========================================================================
+   Forms
+   ========================================================================== */
+
+.form-group {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--space-2);
+
+    margin-bottom: var(--space-4);
+}
+
+.form-label {
+    font-weight: var(--font-weight-medium);
+}
+
+.form-helper {
+    font-size: var(--font-size-sm);
+
+    color: var(--color-text-muted);
+}
+
+.form-error {
+    color: var(--color-danger);
+
+    font-size: var(--font-size-sm);
+}
+
+/* -------------------------------------------------------------------------- */
+
+.input,
+.select,
+.textarea {
+    width: 100%;
+
+    padding: 0.8rem 1rem;
+
+    border-radius: var(--radius-md);
+
+    border: 1px solid var(--color-border);
+
+    background: var(--color-surface);
+
+    color: var(--color-text);
+
+    transition: all var(--transition-fast);
+}
+
+.input:hover,
+.select:hover,
+.textarea:hover {
+    border-color: var(--color-primary);
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+    outline: none;
+
+    border-color: var(--color-primary);
+
+    box-shadow: 0 0 0 3px rgba(100, 108, 255, 0.2);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+    color: var(--color-text-muted);
+}
+
+.textarea {
+    resize: vertical;
+
+    min-height: 140px;
+}
+
+.checkbox {
+    display: flex;
+
+    align-items: center;
+
+    gap: var(--space-2);
+}

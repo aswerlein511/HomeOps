@@ -1,26 +1,28 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
+import MainLayout from '@/layouts/MainLayout';
+
 import DashboardPage from '@/pages/Dashboard';
 import HomePage from '@/pages/Home';
 import NotFoundPage from '@/pages/NotFound';
 import SettingsPage from '@/pages/Settings';
 
-const Router = (): React.JSX.Element => {
+export default function Router() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path='/' element={<HomePage />} />
+                <Route element={<MainLayout />}>
+                    <Route path='/' element={<DashboardPage />} />
 
-                <Route path='/dashboard' element={<DashboardPage />} />
+                    <Route path='/dashboard' element={<Navigate replace to='/' />} />
 
-                <Route path='/settings' element={<SettingsPage />} />
+                    <Route path='/home' element={<HomePage />} />
 
-                <Route path='/home' element={<Navigate to='/' replace />} />
+                    <Route path='/settings' element={<SettingsPage />} />
+                </Route>
 
                 <Route path='*' element={<NotFoundPage />} />
             </Routes>
         </BrowserRouter>
     );
-};
-
-export default Router;
+}
