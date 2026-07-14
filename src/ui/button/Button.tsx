@@ -1,97 +1,87 @@
-import "./Button.css";
+import './Button.css';
 
-import type {
-    ButtonHTMLAttributes,
-    MouseEventHandler,
-} from "react";
+import type { ButtonHTMLAttributes, MouseEventHandler } from 'react';
 
-import {
-    BaseComponentProps,
-    Size,
-    Variant,
-    classNames,
-    getTestProps,
-} from "../common";
+import { BaseComponentProps, Size, Variant, classNames, getTestProps } from '../common';
 
 export interface ButtonProps
-  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "className">,
-    BaseComponentProps {
-  /**
-   * Button style.
-   */
-  variant?: Variant;
+    extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'>, BaseComponentProps {
+    /**
+     * Button style.
+     */
+    variant?: Variant;
 
-  /**
-   * Button size.
-   */
-  size?: Size;
+    /**
+     * Button size.
+     */
+    size?: Size;
 
-  /**
-   * Shows loading state and disables the button.
-   */
-  loading?: boolean;
+    /**
+     * Shows loading state and disables the button.
+     */
+    loading?: boolean;
 
-  /**
-   * Expands to fill parent width.
-   */
-  fullWidth?: boolean;
+    /**
+     * Expands to fill parent width.
+     */
+    fullWidth?: boolean;
 
-  /**
-   * Click handler.
-   */
-  onClick?: MouseEventHandler<HTMLButtonElement>;
+    /**
+     * Click handler.
+     */
+    onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
 export function Button({
-  children,
+    children,
 
-  className,
-  style,
-  dataTest,
+    className,
+    style,
+    dataTest,
 
-  ariaLabel,
-  ariaDescribedBy,
-  ariaBusy,
-  ariaDisabled,
+    ariaLabel,
+    ariaDescribedBy,
+    ariaBusy,
+    ariaDisabled,
 
-  variant = "primary",
-  size = "md",
+    variant = 'primary',
+    size = 'md',
 
-  loading = false,
-  fullWidth = false,
+    loading = false,
+    fullWidth = false,
 
-  disabled,
+    disabled,
 
-  onClick,
+    onClick,
 
-  type = "button",
+    type = 'button',
 
-  ...rest
+    ...rest
 }: ButtonProps) {
-  return (
-    <button
-      {...rest}
-      {...getTestProps(dataTest)}
-      type={type}
-      style={style}
-      onClick={onClick}
-      disabled={disabled || loading}
-      aria-label={ariaLabel}
-      aria-describedby={ariaDescribedBy}
-      aria-busy={loading || ariaBusy}
-      aria-disabled={disabled || loading || ariaDisabled}
-      className={classNames(
-        "btn",
-        `btn-${variant}`,
-        `btn-${size}`,
-        fullWidth && "btn-full-width",
-        loading && "btn-loading",
-        className
-      )}
-    >
-      {loading ? "Loading..." : children}
-    </button>
-  );
+    return (
+        <button
+            {...rest}
+            {...getTestProps(dataTest)}
+            type={type}
+            style={style}
+            onClick={onClick}
+            disabled={disabled || loading}
+            aria-label={ariaLabel}
+            aria-describedby={ariaDescribedBy}
+            aria-busy={loading || ariaBusy}
+            aria-disabled={disabled || loading || ariaDisabled}
+            className={classNames(
+                'btn',
+                `btn-${variant}`,
+                `btn-${size}`,
+                fullWidth && 'btn-full-width',
+                loading && 'btn-loading',
+                className,
+            )}
+        >
+            {loading ? 'Loading...' : children}
+        </button>
+    );
 }
 
 export default Button;

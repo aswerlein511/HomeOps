@@ -1,5 +1,5 @@
-import Router from "./Router";
+import Router from './Router';
 
 export default function Providers() {
-  return <Router />;
+    return <Router />;
 }

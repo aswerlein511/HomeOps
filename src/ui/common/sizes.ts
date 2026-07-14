@@ -3,9 +3,4 @@
  *
  * Components should use these sizes whenever possible.
  */
-export type Size =
-  | "xs"
-  | "sm"
-  | "md"
-  | "lg"
-  | "xl";
+export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';

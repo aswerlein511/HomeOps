@@ -3,61 +3,61 @@
    ========================================================================== */
 
 .card {
-  display: flex;
+    display: flex;
 
-  flex-direction: column;
+    flex-direction: column;
 
-  gap: var(--space-4);
+    gap: var(--space-4);
 
-  background: var(--color-card);
+    background: var(--color-card);
 
-  border: 1px solid var(--color-border);
+    border: 1px solid var(--color-border);
 
-  border-radius: var(--radius-lg);
+    border-radius: var(--radius-lg);
 
-  padding: var(--space-6);
+    padding: var(--space-6);
 
-  box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-sm);
 
-  transition:
-    transform var(--transition-fast),
-    box-shadow var(--transition-fast);
+    transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast);
 }
 
 .card:hover {
-  transform: translateY(-2px);
+    transform: translateY(-2px);
 
-  box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-md);
 }
 
 .card-header {
-  display: flex;
+    display: flex;
 
-  align-items: center;
+    align-items: center;
 
-  justify-content: space-between;
+    justify-content: space-between;
 }
 
 .card-title {
-  margin: 0;
+    margin: 0;
 
-  font-size: var(--font-size-lg);
+    font-size: var(--font-size-lg);
 
-  font-weight: var(--font-weight-bold);
+    font-weight: var(--font-weight-bold);
 }
 
 .card-body {
-  display: flex;
+    display: flex;
 
-  flex-direction: column;
+    flex-direction: column;
 
-  gap: var(--space-4);
+    gap: var(--space-4);
 }
 
 .card-footer {
-  display: flex;
+    display: flex;
 
-  justify-content: flex-end;
+    justify-content: flex-end;
 
-  gap: var(--space-3);
+    gap: var(--space-3);
 }

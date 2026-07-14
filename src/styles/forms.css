@@ -3,29 +3,29 @@
    ========================================================================== */
 
 .form-group {
-  display: flex;
+    display: flex;
 
-  flex-direction: column;
+    flex-direction: column;
 
-  gap: var(--space-2);
+    gap: var(--space-2);
 
-  margin-bottom: var(--space-4);
+    margin-bottom: var(--space-4);
 }
 
 .form-label {
-  font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-medium);
 }
 
 .form-helper {
-  font-size: var(--font-size-sm);
+    font-size: var(--font-size-sm);
 
-  color: var(--color-text-muted);
+    color: var(--color-text-muted);
 }
 
 .form-error {
-  color: var(--color-danger);
+    color: var(--color-danger);
 
-  font-size: var(--font-size-sm);
+    font-size: var(--font-size-sm);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -33,65 +33,52 @@
 .input,
 .select,
 .textarea {
+    width: 100%;
 
-  width: 100%;
+    padding: 0.8rem 1rem;
 
-  padding: .8rem 1rem;
+    border-radius: var(--radius-md);
 
-  border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
 
-  border: 1px solid var(--color-border);
+    background: var(--color-surface);
 
-  background: var(--color-surface);
+    color: var(--color-text);
 
-  color: var(--color-text);
-
-  transition: all var(--transition-fast);
-
+    transition: all var(--transition-fast);
 }
 
 .input:hover,
 .select:hover,
 .textarea:hover {
-
-  border-color: var(--color-primary);
-
+    border-color: var(--color-primary);
 }
 
 .input:focus,
 .select:focus,
 .textarea:focus {
+    outline: none;
 
-  outline: none;
+    border-color: var(--color-primary);
 
-  border-color: var(--color-primary);
-
-  box-shadow:
-      0 0 0 3px rgba(100,108,255,.20);
-
+    box-shadow: 0 0 0 3px rgba(100, 108, 255, 0.2);
 }
 
 .input::placeholder,
 .textarea::placeholder {
-
-  color: var(--color-text-muted);
-
+    color: var(--color-text-muted);
 }
 
 .textarea {
+    resize: vertical;
 
-  resize: vertical;
-
-  min-height: 140px;
-
+    min-height: 140px;
 }
 
 .checkbox {
+    display: flex;
 
-  display: flex;
+    align-items: center;
 
-  align-items: center;
-
-  gap: var(--space-2);
-
+    gap: var(--space-2);
 }
