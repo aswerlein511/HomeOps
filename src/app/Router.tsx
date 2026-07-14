@@ -1,26 +1,48 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import {
+    BrowserRouter,
+    Navigate,
+    Route,
+    Routes,
+} from "react-router-dom";
 
-import DashboardPage from '@/pages/Dashboard';
-import HomePage from '@/pages/Home';
-import NotFoundPage from '@/pages/NotFound';
-import SettingsPage from '@/pages/Settings';
+import MainLayout from "../layouts/MainLayout";
 
-const Router = (): React.JSX.Element => {
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path='/' element={<HomePage />} />
+import DashboardPage from "../pages/Dashboard";
+import HomePage from "../pages/Home";
+import NotFoundPage from "../pages/NotFound";
+import SettingsPage from "../pages/Settings";
 
-                <Route path='/dashboard' element={<DashboardPage />} />
+export default function Router() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<MainLayout />}>
+          <Route
+            path="/"
+            element={<DashboardPage />}
+          />
 
-                <Route path='/settings' element={<SettingsPage />} />
+          <Route
+            path="/dashboard"
+            element={<Navigate replace to="/" />}
+          />
 
-                <Route path='/home' element={<Navigate to='/' replace />} />
+          <Route
+            path="/home"
+            element={<HomePage />}
+          />
 
-                <Route path='*' element={<NotFoundPage />} />
-            </Routes>
-        </BrowserRouter>
-    );
-};
+          <Route
+            path="/settings"
+            element={<SettingsPage />}
+          />
+        </Route>
 
-export default Router;
+        <Route
+          path="*"
+          element={<NotFoundPage />}
+        />
+      </Routes>
+    </BrowserRouter>
+  );
+}

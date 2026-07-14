@@ -1,7 +1,5 @@
-import App from './App';
+import Router from "./Router";
 
-const Providers = (): React.JSX.Element => {
-    return <App />;
-};
-
-export default Providers;
+export default function Providers() {
+  return <Router />;
+}
