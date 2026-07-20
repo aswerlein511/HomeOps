@@ -29,7 +29,7 @@ const navItems = [
 
 export default function Sidebar() {
     return (
-        <aside className='app-sidebar' data-test='layout-sidebar'>
+        <aside className='app-sidebar' data-testid='layout-sidebar'>
             <nav>
                 <ul
                     style={{
@@ -45,7 +45,7 @@ export default function Sidebar() {
                         <li key={item.path}>
                             <NavLink
                                 to={item.path}
-                                data-test={item.testId}
+                                data-testid={item.testId}
                                 style={{
                                     display: 'block',
                                     padding: '10px 14px',

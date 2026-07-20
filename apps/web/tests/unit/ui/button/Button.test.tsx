@@ -21,10 +21,10 @@ describe('Button', () => {
         expect(screen.getByText('Nested Child')).toBeInTheDocument();
     });
 
-    it('renders the data-test attribute', () => {
-        renderWithProviders(<Button dataTest='save-button'>Save</Button>);
+    it('renders the data-testid attribute', () => {
+        renderWithProviders(<Button data-testid='save-button'>Save</Button>);
 
-        expect(screen.getByRole('button')).toHaveAttribute('data-test', 'save-button');
+        expect(screen.getByRole('button')).toHaveAttribute('data-testid', 'save-button');
     });
 
     it('supports custom class names', () => {

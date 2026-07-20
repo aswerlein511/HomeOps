@@ -1,27 +1,36 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-import { PcHealth } from '../models';
+import type { PcHealth } from '@homeops/shared';
 import { pcHealthService } from '../services';
 
 export function usePcHealth() {
-    const [health, setHealth] = useState<PcHealth | null>(null);
+    const [health, setHealth] = useState<PcHealth>();
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<Error>();
 
-    useEffect(() => {
-        async function load() {
+    const loadHealth = useCallback(async () => {
+        try {
             setLoading(true);
+            setError(undefined);
 
-            const data = await pcHealthService.getHealth();
+            const result = await pcHealthService.getHealth();
 
-            setHealth(data);
+            setHealth(result);
+        } catch (err) {
+            setError(err as Error);
+        } finally {
             setLoading(false);
         }
-
-        load();
     }, []);
+
+    useEffect(() => {
+        void loadHealth();
+    }, [loadHealth]);
 
     return {
         health,
         loading,
+        error,
+        refresh: loadHealth,
     };
 }

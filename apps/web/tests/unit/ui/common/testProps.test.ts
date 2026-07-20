@@ -14,27 +14,27 @@ describe('getTestProps', () => {
         expect(getTestProps('')).toEqual({});
     });
 
-    it('returns the data-test attribute', () => {
+    it('returns the data-testid attribute', () => {
         expect(getTestProps('save-button')).toEqual({
-            'data-test': 'save-button',
+            'data-testid': 'save-button',
         });
     });
 
     it('preserves special characters', () => {
         expect(getTestProps('user-profile.save')).toEqual({
-            'data-test': 'user-profile.save',
+            'data-testid': 'user-profile.save',
         });
     });
 
     it('preserves dash-separated values', () => {
         expect(getTestProps('dashboard-refresh-button')).toEqual({
-            'data-test': 'dashboard-refresh-button',
+            'data-testid': 'dashboard-refresh-button',
         });
     });
 
     it('does not trim whitespace automatically', () => {
         expect(getTestProps(' save ')).toEqual({
-            'data-test': ' save ',
+            'data-testid': ' save ',
         });
     });
 });

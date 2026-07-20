@@ -1,0 +1,28 @@
+{
+    "extends": "../../tsconfig.base.json",
+
+    "compilerOptions": {
+        "composite": true,
+
+        "rootDir": "src",
+
+        "outDir": "dist",
+
+        "baseUrl": ".",
+
+        "paths": {
+            "@homeops/shared": ["../../packages/shared/src/index.ts"],
+            "@homeops/shared/*": ["../../packages/shared/src/*"]
+        },
+
+        "types": ["node"]
+    },
+
+    "include": ["src", "../../packages/shared/src"],
+
+    "references": [
+        {
+            "path": "../../packages/shared"
+        }
+    ]
+}

@@ -1,12 +1,14 @@
-import { PcHealth } from '../models';
-import { MockPcHealthProvider, PcHealthProvider } from './providers';
+import { PcHealthProvider } from './providers';
 
 export class PcHealthService {
-    constructor(private readonly provider: PcHealthProvider = new MockPcHealthProvider()) {}
+    private readonly provider = new PcHealthProvider();
 
-    async getHealth(): Promise<PcHealth> {
+    async getHealth() {
         return this.provider.getHealth();
     }
 }
 
+/**
+ * Shared singleton instance used by the React hook and unit tests.
+ */
 export const pcHealthService = new PcHealthService();

@@ -1,5 +1,4 @@
-import { getMockPcHealth, type MockScenario } from '../../mocks';
-import type { PcHealth } from '../../models';
+import { getMockPcHealth, type MockScenario, type PcHealth } from '@homeops/shared';
 
 import type { PcHealthProvider } from './PcHealthProvider';
 

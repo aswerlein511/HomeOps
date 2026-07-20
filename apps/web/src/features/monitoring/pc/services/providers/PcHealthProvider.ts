@@ -1,5 +1,13 @@
-import { PcHealth } from '../../models';
+import { ApiPcHealthProvider } from './ApiPcHealthProvider';
+import { MockPcHealthProvider } from './MockPcHealthProvider';
 
-export interface PcHealthProvider {
-    getHealth(): Promise<PcHealth>;
+const provider =
+    import.meta.env.VITE_PC_USE_MOCK === 'true'
+        ? new MockPcHealthProvider()
+        : new ApiPcHealthProvider();
+
+export class PcHealthProvider {
+    async getHealth() {
+        return provider.getHealth();
+    }
 }

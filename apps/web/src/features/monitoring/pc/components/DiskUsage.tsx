@@ -1,4 +1,4 @@
-import type { DiskInfo } from '../models';
+import type { DiskInfo } from '../../../../../../../packages/shared/src/monitoring/models';
 
 interface Props {
     disks: DiskInfo[];

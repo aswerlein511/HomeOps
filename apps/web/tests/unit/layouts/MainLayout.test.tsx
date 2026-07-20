@@ -6,7 +6,7 @@ import { render, screen } from '@testing-library/react';
 import MainLayout from '@/layouts/MainLayout';
 
 function TestPage() {
-    return <div data-test='page-content'>Dashboard Page</div>;
+    return <div data-testid='page-content'>Dashboard Page</div>;
 }
 
 describe('MainLayout', () => {
@@ -52,7 +52,7 @@ describe('MainLayout', () => {
         expect(screen.getByRole('main')).toBeInTheDocument();
     });
 
-    it('renders the layout content data-test', () => {
+    it('renders the layout content data-testid', () => {
         renderLayout();
 
         expect(screen.getByTestId('layout-content')).toBeInTheDocument();
@@ -64,7 +64,7 @@ describe('MainLayout', () => {
         expect(screen.getByText('Dashboard Page')).toBeInTheDocument();
     });
 
-    it('renders the outlet data-test', () => {
+    it('renders the outlet data-testid', () => {
         renderLayout();
 
         expect(screen.getByTestId('page-content')).toBeInTheDocument();

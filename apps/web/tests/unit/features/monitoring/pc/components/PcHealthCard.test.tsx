@@ -3,12 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { PcHealthCard } from '@/features/monitoring/pc/components';
-import { usePcHealth } from '@/features/monitoring/pc/hooks';
 import { theme } from '@/theme';
-
-vi.mock('@/features/monitoring/pc/hooks', () => ({
-    usePcHealth: vi.fn(),
-}));
 
 vi.mock('@/ui/common', () => ({
     Metric: ({ label, value }: { label: string; value: string }) => (
@@ -18,8 +13,6 @@ vi.mock('@/ui/common', () => ({
         </div>
     ),
 }));
-
-const mockedUsePcHealth = vi.mocked(usePcHealth);
 
 const mockHealth = {
     hostname: 'Aaron-PC',
@@ -53,10 +46,10 @@ const mockHealth = {
     },
 };
 
-const renderComponent = () =>
+const renderComponent = (health = mockHealth) =>
     render(
         <ThemeProvider theme={theme}>
-            <PcHealthCard />
+            <PcHealthCard health={health as any} />
         </ThemeProvider>,
     );
 
@@ -65,62 +58,7 @@ describe('PcHealthCard', () => {
         vi.clearAllMocks();
     });
 
-    describe('loading state', () => {
-        beforeEach(() => {
-            mockedUsePcHealth.mockReturnValue({
-                loading: true,
-                health: undefined,
-            } as any);
-        });
-
-        it('renders loading message', () => {
-            renderComponent();
-
-            expect(screen.getByText('Loading PC Health...')).toBeInTheDocument();
-        });
-
-        it('does not render hostname', () => {
-            renderComponent();
-
-            expect(screen.queryByText('Aaron-PC')).not.toBeInTheDocument();
-        });
-
-        it('does not render metrics', () => {
-            renderComponent();
-
-            expect(screen.queryByTestId('metric-Model')).not.toBeInTheDocument();
-        });
-    });
-
-    describe('empty state', () => {
-        beforeEach(() => {
-            mockedUsePcHealth.mockReturnValue({
-                loading: false,
-                health: undefined,
-            } as any);
-        });
-
-        it('renders empty message', () => {
-            renderComponent();
-
-            expect(screen.getByText('No PC health data available.')).toBeInTheDocument();
-        });
-
-        it('does not render any metrics', () => {
-            renderComponent();
-
-            expect(screen.queryByTestId('metric-Model')).not.toBeInTheDocument();
-        });
-    });
-
     describe('healthy pc', () => {
-        beforeEach(() => {
-            mockedUsePcHealth.mockReturnValue({
-                loading: false,
-                health: mockHealth,
-            } as any);
-        });
-
         it('renders hostname', () => {
             renderComponent();
 
@@ -172,13 +110,13 @@ describe('PcHealthCard', () => {
         it('renders cpu usage', () => {
             renderComponent();
 
-            expect(screen.getByText('31%')).toBeInTheDocument();
+            expect(screen.getByText('31.0%')).toBeInTheDocument();
         });
 
         it('renders cpu temperature', () => {
             renderComponent();
 
-            expect(screen.getByText('55 °C')).toBeInTheDocument();
+            expect(screen.getByText('55.0 °C')).toBeInTheDocument();
         });
 
         it('renders memory usage', () => {
@@ -208,7 +146,7 @@ describe('PcHealthCard', () => {
         it('renders disk usage', () => {
             renderComponent();
 
-            expect(screen.getByText('72%')).toBeInTheDocument();
+            expect(screen.getByText('72.0%')).toBeInTheDocument();
         });
 
         it('renders disk health', () => {
@@ -220,13 +158,13 @@ describe('PcHealthCard', () => {
         it('renders download speed', () => {
             renderComponent();
 
-            expect(screen.getByText('965 Mbps')).toBeInTheDocument();
+            expect(screen.getByText('965.0 Mbps')).toBeInTheDocument();
         });
 
         it('renders upload speed', () => {
             renderComponent();
 
-            expect(screen.getByText('42 Mbps')).toBeInTheDocument();
+            expect(screen.getByText('42.0 Mbps')).toBeInTheDocument();
         });
 
         it('renders latency', () => {
@@ -245,34 +183,155 @@ describe('PcHealthCard', () => {
             renderComponent();
 
             expect(screen.getByText('Intel Core Ultra 9 285K')).toBeInTheDocument();
-
             expect(screen.getByText('16.0 GB')).toBeInTheDocument();
-
             expect(screen.getByText('32.0 GB')).toBeInTheDocument();
-
             expect(screen.getByText('C:')).toBeInTheDocument();
-
-            expect(screen.getByText('965 Mbps')).toBeInTheDocument();
-
-            expect(screen.getByText('42 Mbps')).toBeInTheDocument();
-
+            expect(screen.getByText('965.0 Mbps')).toBeInTheDocument();
+            expect(screen.getByText('42.0 Mbps')).toBeInTheDocument();
             expect(screen.getByText('8 ms')).toBeInTheDocument();
         });
     });
 
     describe('status chip', () => {
         it.each(['Healthy', 'Warning', 'Critical', 'Unknown'])('renders %s status', (status) => {
-            mockedUsePcHealth.mockReturnValue({
-                loading: false,
-                health: {
-                    ...mockHealth,
-                    overallStatus: status,
+            renderComponent({
+                ...mockHealth,
+                overallStatus: status,
+            } as any);
+
+            expect(screen.getByText(status)).toBeInTheDocument();
+        });
+    });
+
+    describe('branch coverage', () => {
+        it('renders N/A when cpu temperature is unavailable', () => {
+            renderComponent({
+                ...mockHealth,
+                cpu: {
+                    ...mockHealth.cpu,
+                    temperatureC: undefined,
                 },
             } as any);
 
-            renderComponent();
+            expect(screen.getByTestId('metric-Temperature')).toHaveTextContent('N/A');
+        });
 
-            expect(screen.getByText(status)).toBeInTheDocument();
+        it('prefers the linux root mount when no C drive exists', () => {
+            renderComponent({
+                ...mockHealth,
+                disks: [
+                    {
+                        ...mockHealth.disks[0],
+                        label: '',
+                        mountPoint: '/',
+                        fileSystem: 'ext4',
+                        usagePercent: 40,
+                        healthPercent: 98,
+                    },
+                ],
+            } as any);
+
+            const usages = screen.getAllByTestId('metric-Usage');
+
+            expect(usages[2]).toHaveTextContent('40.0%');
+            expect(screen.getByTestId('metric-Health')).toHaveTextContent('98%');
+        });
+
+        it('falls back to a /dev filesystem', () => {
+            renderComponent({
+                ...mockHealth,
+                disks: [
+                    {
+                        ...mockHealth.disks[0],
+                        label: '',
+                        mountPoint: '/mnt/storage',
+                        fileSystem: '/dev/nvme0n1p1',
+                        usagePercent: 61,
+                        healthPercent: 99,
+                    },
+                ],
+            } as any);
+
+            const usages = screen.getAllByTestId('metric-Usage');
+
+            expect(usages[2]).toHaveTextContent('61.0%');
+            expect(screen.getByTestId('metric-Health')).toHaveTextContent('99%');
+        });
+
+        it('falls back to the first disk', () => {
+            renderComponent({
+                ...mockHealth,
+                disks: [
+                    {
+                        ...mockHealth.disks[0],
+                        label: 'Backup',
+                        mountPoint: '/backup',
+                        fileSystem: 'xfs',
+                        usagePercent: 25,
+                        healthPercent: 95,
+                    },
+                ],
+            } as any);
+
+            expect(screen.getByTestId('metric-Drive')).toHaveTextContent('Backup');
+        });
+
+        it('renders N/A when there are no disks', () => {
+            renderComponent({
+                ...mockHealth,
+                disks: [],
+            } as any);
+
+            expect(screen.getByTestId('metric-Drive')).toHaveTextContent('N/A');
+
+            const usages = screen.getAllByTestId('metric-Usage');
+
+            expect(usages[2]).toHaveTextContent('N/A');
+            expect(screen.getByTestId('metric-Health')).toHaveTextContent('N/A');
+        });
+
+        it('renders N/A for zero network metrics', () => {
+            renderComponent({
+                ...mockHealth,
+                network: {
+                    downloadMbps: 0,
+                    uploadMbps: 0,
+                    latencyMs: 0,
+                },
+            });
+
+            expect(screen.getByTestId('metric-Download')).toHaveTextContent('N/A');
+
+            expect(screen.getByTestId('metric-Upload')).toHaveTextContent('N/A');
+
+            expect(screen.getByTestId('metric-Latency')).toHaveTextContent('N/A');
+        });
+
+        it('renders Warning status correctly', () => {
+            renderComponent({
+                ...mockHealth,
+                overallStatus: 'Warning',
+            } as any);
+
+            expect(screen.getByText('Warning')).toBeInTheDocument();
+        });
+
+        it('renders Critical status correctly', () => {
+            renderComponent({
+                ...mockHealth,
+                overallStatus: 'Critical',
+            } as any);
+
+            expect(screen.getByText('Critical')).toBeInTheDocument();
+        });
+
+        it('renders Unknown status correctly', () => {
+            renderComponent({
+                ...mockHealth,
+                overallStatus: 'Unknown',
+            } as any);
+
+            expect(screen.getByText('Unknown')).toBeInTheDocument();
         });
     });
 });

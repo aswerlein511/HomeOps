@@ -1,0 +1,28 @@
+{
+    "name": "@homeops/api",
+    "private": true,
+    "scripts": {
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "format": "prettier . --write",
+        "format:check": "prettier . --check",
+        "test": "vitest",
+        "coverage": "vitest run --coverage"
+    },
+    "dependencies": {
+        "@homeops/shared": "0.1.0",
+        "cors": "^2.8.6",
+        "dotenv": "^17.4.2",
+        "express": "^5.2.1",
+        "systeminformation": "^5.32.0"
+    },
+    "devDependencies": {
+        "@types/cors": "^2.8.19",
+        "@types/express": "^5.0.6",
+        "@types/node": "^24.13.3",
+        "@vitest/coverage-v8": "^4.1.10",
+        "tsx": "^4.23.1",
+        "typescript": "^5.9.3",
+        "vitest": "^4.1.10"
+    }
+}

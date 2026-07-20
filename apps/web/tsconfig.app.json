@@ -22,13 +22,13 @@
 
         "allowSyntheticDefaultImports": true,
 
+        "ignoreDeprecations": "6.0",
+
         "esModuleInterop": true,
 
         "resolveJsonModule": true,
 
         "noEmit": true,
-
-        "ignoreDeprecations": "6.0",
 
         "baseUrl": ".",
 
@@ -36,9 +36,12 @@
 
         "paths": {
             "@/*": ["./src/*"],
-            "@tests/*": ["./tests/*"]
+            "@tests/*": ["./tests/*"],
+
+            "@homeops/shared": ["../../packages/shared/src/index.ts"],
+            "@homeops/shared/*": ["../../packages/shared/src/*"]
         }
     },
 
-    "include": ["./src", "./tests"]
+    "include": ["./src", "./tests", "../../packages/shared/src"]
 }

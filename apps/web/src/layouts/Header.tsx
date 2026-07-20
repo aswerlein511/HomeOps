@@ -2,7 +2,7 @@ import { Button } from '@/ui/button';
 
 export default function Header() {
     return (
-        <header className='app-header' data-test='layout-header'>
+        <header className='app-header' data-testid='layout-header'>
             <div
                 style={{
                     display: 'flex',

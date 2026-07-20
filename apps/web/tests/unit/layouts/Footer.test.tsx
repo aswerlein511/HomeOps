@@ -17,10 +17,10 @@ describe('Footer', () => {
         expect(screen.getByRole('contentinfo')).toHaveClass('app-footer');
     });
 
-    it('renders the footer data-test attribute', () => {
+    it('renders the footer data-testid attribute', () => {
         renderWithProviders(<Footer />);
 
-        expect(screen.getByRole('contentinfo')).toHaveAttribute('data-test', 'layout-footer');
+        expect(screen.getByRole('contentinfo')).toHaveAttribute('data-testid', 'layout-footer');
     });
 
     it('displays the connected status', () => {

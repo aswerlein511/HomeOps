@@ -1,4 +1,4 @@
-import type { HealthStatus } from '../types';
+import type { HealthStatus } from '@homeops/shared';
 
 interface Props {
     status: HealthStatus;

@@ -83,14 +83,14 @@ Current repository includes:
 
 # Technology Stack
 
-| Technology | Purpose |
-|------------|---------|
-| React | UI Framework |
-| TypeScript | Type Safety |
-| Vite | Build Tool |
-| CSS3 | Styling |
-| ESLint | Code Quality |
-| npm | Package Management |
+| Technology | Purpose            |
+| ---------- | ------------------ |
+| React      | UI Framework       |
+| TypeScript | Type Safety        |
+| Vite       | Build Tool         |
+| CSS3       | Styling            |
+| ESLint     | Code Quality       |
+| npm        | Package Management |
 
 ---
 
@@ -204,13 +204,13 @@ Recommended Extensions:
 
 # Scripts
 
-| Command | Description |
-|----------|-------------|
-| `npm install` | Install dependencies |
-| `npm run dev` | Start development server |
-| `npm run build` | Build production bundle |
+| Command           | Description              |
+| ----------------- | ------------------------ |
+| `npm install`     | Install dependencies     |
+| `npm run dev`     | Start development server |
+| `npm run build`   | Build production bundle  |
 | `npm run preview` | Preview production build |
-| `npm run lint` | Run ESLint |
+| `npm run lint`    | Run ESLint               |
 
 ---
 
@@ -463,4 +463,7 @@ Built by **Aaron Swerlein**
 ## Vision
 
 The goal of Home Operations Center is to become a complete personal operating system for managing every aspect of home life—from maintenance and finances to projects, family organization, and AI-assisted automation—all from one clean, modern dashboard.
+
+```
+
 ```

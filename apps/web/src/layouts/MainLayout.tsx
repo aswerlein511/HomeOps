@@ -6,12 +6,12 @@ import Sidebar from './Sidebar';
 
 export default function MainLayout() {
     return (
-        <div className='app-layout' data-test='layout-main'>
+        <div className='app-layout' data-testid='layout-main'>
             <Header />
 
             <Sidebar />
 
-            <main className='app-main' data-test='layout-content'>
+            <main className='app-main' data-testid='layout-content'>
                 <Outlet />
             </main>
 

@@ -1,17 +1,32 @@
 {
-  "name": "homeops",
-  "version": "0.1.0",
-  "private": true,
-
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
-
-  "scripts": {
-    "dev:web": "npm --workspace apps/web run dev",
-    "build:web": "npm --workspace apps/web run build",
-    "test:web": "npm --workspace apps/web run test",
-    "lint:web": "npm --workspace apps/web run lint"
-  }
+    "name": "homeops",
+    "private": true,
+    "workspaces": [
+        "apps/*",
+        "packages/*"
+    ],
+    "scripts": {
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "format": "prettier . --write",
+        "format:check": "prettier . --check",
+        "test": "vitest",
+        "coverage": "vitest run --coverage"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.39.5",
+        "@vitest/coverage-v8": "^4.1.10",
+        "eslint": "^9.39.5",
+        "eslint-config-prettier": "^10.1.8",
+        "eslint-plugin-prettier": "^5.5.6",
+        "eslint-plugin-react": "^7.37.5",
+        "eslint-plugin-react-hooks": "^7.1.1",
+        "eslint-plugin-react-refresh": "^0.5.3",
+        "eslint-plugin-unused-imports": "^4.4.1",
+        "globals": "^17.7.0",
+        "prettier": "^3.9.5",
+        "typescript": "^5.9.3",
+        "typescript-eslint": "^8.64.0",
+        "vitest": "^4.1.10"
+    }
 }

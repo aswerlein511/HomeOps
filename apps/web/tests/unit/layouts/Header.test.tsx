@@ -39,20 +39,20 @@ describe('Header', () => {
         expect(screen.getByRole('banner')).toHaveClass('app-header');
     });
 
-    it('renders the header data-test attribute', () => {
+    it('renders the header data-testid attribute', () => {
         renderWithProviders(<Header />);
 
-        expect(screen.getByRole('banner')).toHaveAttribute('data-test', 'layout-header');
+        expect(screen.getByRole('banner')).toHaveAttribute('data-testid', 'layout-header');
     });
 
-    it('renders the connect button data-test attribute', () => {
+    it('renders the connect button data-testid attribute', () => {
         renderWithProviders(<Header />);
 
         expect(
             screen.getByRole('button', {
                 name: 'Connect',
             }),
-        ).toHaveAttribute('data-test', 'btn-connect');
+        ).toHaveAttribute('data-testid', 'btn-connect');
     });
 
     it('contains exactly one heading', () => {

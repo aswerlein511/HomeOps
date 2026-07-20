@@ -17,10 +17,10 @@ describe('Sidebar', () => {
         expect(screen.getByRole('complementary')).toHaveClass('app-sidebar');
     });
 
-    it('renders the sidebar data-test attribute', () => {
+    it('renders the sidebar data-testid attribute', () => {
         renderWithProviders(<Sidebar />);
 
-        expect(screen.getByRole('complementary')).toHaveAttribute('data-test', 'layout-sidebar');
+        expect(screen.getByRole('complementary')).toHaveAttribute('data-testid', 'layout-sidebar');
     });
 
     it('renders the navigation element', () => {
@@ -43,7 +43,7 @@ describe('Sidebar', () => {
         });
 
         expect(link).toHaveAttribute('href', '/');
-        expect(link).toHaveAttribute('data-test', 'nav-dashboard');
+        expect(link).toHaveAttribute('data-testid', 'nav-dashboard');
     });
 
     it('renders the Projects link', () => {
@@ -54,7 +54,7 @@ describe('Sidebar', () => {
         });
 
         expect(link).toHaveAttribute('href', '/projects');
-        expect(link).toHaveAttribute('data-test', 'nav-projects');
+        expect(link).toHaveAttribute('data-testid', 'nav-projects');
     });
 
     it('renders the Tests link', () => {
@@ -65,7 +65,7 @@ describe('Sidebar', () => {
         });
 
         expect(link).toHaveAttribute('href', '/tests');
-        expect(link).toHaveAttribute('data-test', 'nav-tests');
+        expect(link).toHaveAttribute('data-testid', 'nav-tests');
     });
 
     it('renders the Settings link', () => {
@@ -76,7 +76,7 @@ describe('Sidebar', () => {
         });
 
         expect(link).toHaveAttribute('href', '/settings');
-        expect(link).toHaveAttribute('data-test', 'nav-settings');
+        expect(link).toHaveAttribute('data-testid', 'nav-settings');
     });
 
     it('renders one unordered list', () => {

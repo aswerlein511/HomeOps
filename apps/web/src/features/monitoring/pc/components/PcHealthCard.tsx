@@ -1,33 +1,18 @@
 import { Card, CardContent, CardHeader, Chip, Divider, Stack, Typography } from '@mui/material';
 
 import { Metric } from '@/ui/common';
+import type { PcHealth } from '@homeops/shared';
 
-import { usePcHealth } from '../hooks';
+interface PcHealthCardProps {
+    health: PcHealth;
+}
 
-export function PcHealthCard() {
-    const { health, loading } = usePcHealth();
-
-    if (loading) {
-        return (
-            <Card>
-                <CardContent>
-                    <Typography>Loading PC Health...</Typography>
-                </CardContent>
-            </Card>
-        );
-    }
-
-    if (!health) {
-        return (
-            <Card>
-                <CardContent>
-                    <Typography>No PC health data available.</Typography>
-                </CardContent>
-            </Card>
-        );
-    }
-
-    const disk = health.disks[0];
+export function PcHealthCard({ health }: PcHealthCardProps) {
+    const disk =
+        health.disks.find((d) => d.label === 'C:\\') ??
+        health.disks.find((d) => d.mountPoint === '/') ??
+        health.disks.find((d) => d.fileSystem?.startsWith('/dev')) ??
+        health.disks[0];
 
     return (
         <Card sx={{ maxWidth: 500 }}>
@@ -61,9 +46,16 @@ export function PcHealthCard() {
 
                         <Metric label='Model' value={health.cpu.model} />
 
-                        <Metric label='Usage' value={`${health.cpu.usagePercent}%`} />
+                        <Metric label='Usage' value={`${health.cpu.usagePercent.toFixed(1)}%`} />
 
-                        <Metric label='Temperature' value={`${health.cpu.temperatureC} °C`} />
+                        <Metric
+                            label='Temperature'
+                            value={
+                                health.cpu.temperatureC != null
+                                    ? `${health.cpu.temperatureC.toFixed(1)} °C`
+                                    : 'N/A'
+                            }
+                        />
                     </div>
 
                     <Divider />
@@ -74,12 +66,10 @@ export function PcHealthCard() {
                         </Typography>
 
                         <Metric label='Usage' value={`${health.memory.usagePercent}%`} />
-
                         <Metric
                             label='Used'
                             value={`${(health.memory.usedBytes / 1024 ** 3).toFixed(1)} GB`}
                         />
-
                         <Metric
                             label='Total'
                             value={`${(health.memory.totalBytes / 1024 ** 3).toFixed(1)} GB`}
@@ -93,11 +83,17 @@ export function PcHealthCard() {
                             Disk
                         </Typography>
 
-                        <Metric label='Drive' value={disk.label} />
+                        <Metric label='Drive' value={disk?.label ?? 'N/A'} />
 
-                        <Metric label='Usage' value={`${disk.usagePercent}%`} />
+                        <Metric
+                            label='Usage'
+                            value={disk ? `${disk.usagePercent.toFixed(1)}%` : 'N/A'}
+                        />
 
-                        <Metric label='Health' value={`${disk.healthPercent}%`} />
+                        <Metric
+                            label='Health'
+                            value={disk?.healthPercent != null ? `${disk.healthPercent}%` : 'N/A'}
+                        />
                     </div>
 
                     <Divider />
@@ -107,11 +103,32 @@ export function PcHealthCard() {
                             Network
                         </Typography>
 
-                        <Metric label='Download' value={`${health.network.downloadMbps} Mbps`} />
+                        <Metric
+                            label='Download'
+                            value={
+                                health.network.downloadMbps > 0
+                                    ? `${health.network.downloadMbps.toFixed(1)} Mbps`
+                                    : 'N/A'
+                            }
+                        />
 
-                        <Metric label='Upload' value={`${health.network.uploadMbps} Mbps`} />
+                        <Metric
+                            label='Upload'
+                            value={
+                                health.network.uploadMbps > 0
+                                    ? `${health.network.uploadMbps.toFixed(1)} Mbps`
+                                    : 'N/A'
+                            }
+                        />
 
-                        <Metric label='Latency' value={`${health.network.latencyMs} ms`} />
+                        <Metric
+                            label='Latency'
+                            value={
+                                health.network.latencyMs > 0
+                                    ? `${health.network.latencyMs.toFixed(0)} ms`
+                                    : 'N/A'
+                            }
+                        />
                     </div>
                 </Stack>
             </CardContent>
